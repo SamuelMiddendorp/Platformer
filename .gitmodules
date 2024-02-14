@@ -1,0 +1,3 @@
+[submodule "bun2d"]
+	path = bun2d
+	url = https://github.com/SamuelMiddendorp/bun2d
