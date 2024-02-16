@@ -37,7 +37,6 @@ int main()
         }
         updatePhysicsComponent(&player.rigidBody);
         bun2dRect(player.rigidBody.pos.x, player.rigidBody.pos.y, player.rigidBody.dims.x, player.rigidBody.dims.y, color);
-
     }
 }
 void updatePhysicsComponent(PhysicsComponent* comp){
@@ -49,4 +48,13 @@ void updatePhysicsComponent(PhysicsComponent* comp){
 
     comp->acc.x = 0;
     comp->acc.y = 0; 
+    if(comp->pos.x > 800 - comp->dims.x){
+        comp->pos.x = 800 - comp->dims.x;
+    }
+    if(comp->pos.x < 0 ){
+        comp->pos.x = 0;
+    }
+    if(comp->pos.y < 0){
+        comp->pos.y = 0;
+    }
 }
