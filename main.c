@@ -10,16 +10,29 @@ typedef struct PhysicsComponent{
     bool onGround;
 } PhysicsComponent;
 
+typedef struct Platform{
+    Vec2 pos;
+    Vec2 dims;
+} Platform;
+
 typedef struct Player{
     PhysicsComponent rigidBody;
 } Player;
 
+void collisionSystem(Platform** toCheck, PhysicsComponent* p);
+
+const int maxPlatforms = 100;
+
 int main()
 {
     bun2dInit(1, 800, 800, 800, 800, "Platformer");
-
     Pixel color = {140,255,255,255};
     Player player = {{{0,0},{0,0},{0,0},{20,50},false}};
+    Platform* platforms = malloc(sizeof(Platform) * maxPlatforms);
+
+    Platform p = {{20,20}, {5,10}};
+    platforms[0] = p;
+
 
     while (bun2dTick())
     {
@@ -40,13 +53,23 @@ int main()
             }
         }
         player.rigidBody.acc.y -= 0.1;
+        collisionSystem(&platforms, &player.rigidBody);
         updatePhysicsComponent(&player.rigidBody);
+        for(int i = 0; i < maxPlatforms; i++){
+            Platform p = platforms[i];
+            bun2dRect(p.pos.x, p.pos.y, p.dims.x, p.dims.y, color);
+        }
         bun2dRect(player.rigidBody.pos.x, player.rigidBody.pos.y, player.rigidBody.dims.x, player.rigidBody.dims.y, color);
     }
 }
 
-void collisionSystem(PhysicsComponent** toCheck, PhysicsComponent p){
-    
+void collisionSystem(Platform** toCheck, PhysicsComponent* p){
+    for(int i = 0; i < 1; i++){
+        Platform* plat = toCheck[i];
+        if(plat->pos.y < p->pos.y){
+            p->pos.y = plat->pos.y;
+        }
+    }
 }
 void updatePhysicsComponent(PhysicsComponent* comp){
     comp->vel.x += comp->acc.x;
