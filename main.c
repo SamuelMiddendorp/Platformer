@@ -19,7 +19,7 @@ int main()
     bun2dInit(1, 800, 800, 800, 800, "Platformer");
 
     Pixel color = {140,255,255,255};
-    Player player = {{{0,0},{0,0},{0,0},{2,5},false}};
+    Player player = {{{0,0},{0,0},{0,0},{20,50},false}};
 
     while (bun2dTick())
     {
@@ -44,6 +44,10 @@ int main()
         bun2dRect(player.rigidBody.pos.x, player.rigidBody.pos.y, player.rigidBody.dims.x, player.rigidBody.dims.y, color);
     }
 }
+
+void collisionSystem(PhysicsComponent** toCheck, PhysicsComponent p){
+    
+}
 void updatePhysicsComponent(PhysicsComponent* comp){
     comp->vel.x += comp->acc.x;
     comp->vel.y += comp->acc.y;
@@ -62,7 +66,7 @@ void updatePhysicsComponent(PhysicsComponent* comp){
     if(comp->pos.x < 0 ){
         comp->pos.x = 0;
     }
-    if(comp->pos.y < 0){
+    if(comp->pos.y <= 0){
         comp->onGround = true;
         comp->pos.y = 0;
     }
