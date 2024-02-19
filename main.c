@@ -57,9 +57,9 @@ int main()
         updatePhysicsComponent(&player.rigidBody);
         for(int i = 0; i < maxPlatforms; i++){
             Platform p = platforms[i];
-            bun2dRect(p.pos.x, p.pos.y, p.dims.x, p.dims.y, color);
+            bun2dFillRect(p.pos.x, p.pos.y, p.dims.x, p.dims.y, color);
         }
-        bun2dRect(player.rigidBody.pos.x, player.rigidBody.pos.y, player.rigidBody.dims.x, player.rigidBody.dims.y, color);
+        bun2dFillRect(player.rigidBody.pos.x, player.rigidBody.pos.y, player.rigidBody.dims.x, player.rigidBody.dims.y, color);
     }
 }
 
