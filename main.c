@@ -49,7 +49,7 @@ int main()
         }
         if(bun2dKey(KEY_W) > 0){
             if(player.rigidBody.onGround){
-                player.rigidBody.acc.y += 4;
+                player.rigidBody.acc.y += 20;
             }
         }
         player.rigidBody.acc.y -= 0.1;
@@ -66,9 +66,6 @@ int main()
 void collisionSystem(Platform** toCheck, PhysicsComponent* p){
     for(int i = 0; i < 1; i++){
         Platform* plat = toCheck[i];
-        if(plat->pos.y < p->pos.y){
-            p->pos.y = plat->pos.y;
-        }
     }
 }
 void updatePhysicsComponent(PhysicsComponent* comp){
