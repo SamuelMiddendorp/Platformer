@@ -13,6 +13,7 @@ typedef struct PhysicsComponent{
 typedef struct Platform{
     Vec2 pos;
     Vec2 dims;
+    Pixel color;
 } Platform;
 
 typedef struct Player{
@@ -30,7 +31,7 @@ int main()
     Player player = {{{0,0},{0,0},{0,0},{20,50},false}};
     Platform* platforms = malloc(sizeof(Platform) * maxPlatforms);
 
-    Platform p = {{20,20}, {5,10}};
+    Platform p = {{20,20}, {5,10}, {255,100,100,255}};
     platforms[0] = p;
 
 
@@ -55,17 +56,29 @@ int main()
         player.rigidBody.acc.y -= 0.1;
         collisionSystem(&platforms, &player.rigidBody);
         updatePhysicsComponent(&player.rigidBody);
-        for(int i = 0; i < maxPlatforms; i++){
-            Platform p = platforms[i];
-            bun2dFillRect(p.pos.x, p.pos.y, p.dims.x, p.dims.y, color);
-        }
         bun2dFillRect(player.rigidBody.pos.x, player.rigidBody.pos.y, player.rigidBody.dims.x, player.rigidBody.dims.y, color);
+        for(int i = 0; i < 1; i++){
+            Platform p = platforms[i];
+            bun2dFillRect(p.pos.x, p.pos.y, p.dims.x, p.dims.y, p.color);
+        }
     }
 }
 
 void collisionSystem(Platform** toCheck, PhysicsComponent* p){
     for(int i = 0; i < 1; i++){
         Platform* plat = toCheck[i];
+        if((p->pos.x < plat->pos.x + plat->dims.x)
+        && (p->pos.x + p->dims.x > plat->pos.x) 
+        && (p->pos.y < plat->pos.y + plat->dims.y)
+        && (p->pos.y + p->dims.y + plat->pos.y))
+        {
+            Pixel p = {255,10,255,255};
+            plat->color = p; 
+        }
+        else{
+            Pixel p = {255,255,255,255};
+            plat->color = p; 
+        }
     }
 }
 void updatePhysicsComponent(PhysicsComponent* comp){
