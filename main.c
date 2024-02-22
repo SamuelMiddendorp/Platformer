@@ -31,7 +31,7 @@ int main()
     Player player = {{{0,0},{0,0},{0,0},{20,50},false}};
     Platform* platforms = malloc(sizeof(Platform) * maxPlatforms);
 
-    Platform p = {{20,20}, {5,10}, {255,100,100,255}};
+    Platform p = {{50,20}, {20,50}, {255,100,100,255}};
     platforms[0] = p;
 
 
@@ -72,12 +72,9 @@ void collisionSystem(Platform** toCheck, PhysicsComponent* p){
         && (p->pos.y < plat->pos.y + plat->dims.y)
         && (p->pos.y + p->dims.y + plat->pos.y))
         {
-            Pixel p = {255,10,255,255};
-            plat->color = p; 
-        }
-        else{
-            Pixel p = {255,255,255,255};
-            plat->color = p; 
+            if(p->pos.y < plat->pos.y + plat->dims.y){
+                p->pos.y = plat->pos.y + plat->dims.y;
+            }
         }
     }
 }
