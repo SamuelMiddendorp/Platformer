@@ -35,8 +35,7 @@ int main()
     platforms[0] = p;
 
 
-    while (bun2dTick())
-    {
+    while (bun2dTick()) {
         bun2dClear();
         // Input
         if(bun2dKey(KEY_D) == BUN2D_PRESS){
@@ -73,7 +72,7 @@ void collisionSystem(Platform** toCheck, PhysicsComponent* p){
         && (p->pos.y + p->dims.y + plat->pos.y))
         {
             if(p->pos.y < plat->pos.y + plat->dims.y){
-                p->pos.y = plat->pos.y + plat->dims.y;
+                p->pos.y = plat->pos.y + plat->dims.y + 50;
             }
         }
     }
@@ -82,6 +81,7 @@ void updatePhysicsComponent(PhysicsComponent* comp){
     comp->vel.x += comp->acc.x;
     comp->vel.y += comp->acc.y;
 
+    comp->vel.x *= 0.9;
     // Gravity
 
     comp->pos.x += comp->vel.x;
