@@ -31,7 +31,7 @@ int main()
     Player player = {{{0,0},{0,0},{0,0},{20,50},false}};
     Platform* platforms = malloc(sizeof(Platform) * maxPlatforms);
 
-    Platform p = {{50,20}, {20,50}, {255,100,100,255}};
+    Platform p = {{50,20}, {100,50}, {255,100,100,255}};
     platforms[0] = p;
 
 
@@ -66,13 +66,15 @@ int main()
 void collisionSystem(Platform** toCheck, PhysicsComponent* p){
     for(int i = 0; i < 1; i++){
         Platform* plat = toCheck[i];
-        if((p->pos.x < plat->pos.x + plat->dims.x)
-        && (p->pos.x + p->dims.x > plat->pos.x) 
-        && (p->pos.y < plat->pos.y + plat->dims.y)
-        && (p->pos.y + p->dims.y + plat->pos.y))
+        if((p->pos.x <= plat->pos.x + plat->dims.x)
+        && (p->pos.x + p->dims.x >= plat->pos.x) 
+        && (p->pos.y <= plat->pos.y + plat->dims.y)
+        && (p->pos.y + p->dims.y >= plat->pos.y))
         {
-            if(p->pos.y < plat->pos.y + plat->dims.y){
-                p->pos.y = plat->pos.y + plat->dims.y + 50;
+            if(p->pos.y <= plat->pos.y + plat->dims.y){
+                p->pos.y = plat->pos.y + plat->dims.y;
+                p->vel.y = 0;
+                p->onGround = true;
             }
         }
     }
