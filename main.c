@@ -52,7 +52,6 @@ int main()
                 player.rigidBody.acc.y += 20;
             }
         }
-        player.rigidBody.acc.y -= 0.1;
         collisionSystem(&platforms, &player.rigidBody);
         updatePhysicsComponent(&player.rigidBody);
         bun2dFillRect(player.rigidBody.pos.x, player.rigidBody.pos.y, player.rigidBody.dims.x, player.rigidBody.dims.y, color);
@@ -73,13 +72,16 @@ void collisionSystem(Platform** toCheck, PhysicsComponent* p){
         {
             if(p->pos.y <= plat->pos.y + plat->dims.y){
                 p->pos.y = plat->pos.y + plat->dims.y;
-                p->vel.y = 0;
                 p->onGround = true;
             }
         }
     }
 }
 void updatePhysicsComponent(PhysicsComponent* comp){
+    if(!comp->onGround){
+        comp->acc.y -= 0.1;
+    }
+
     comp->vel.x += comp->acc.x;
     comp->vel.y += comp->acc.y;
 
