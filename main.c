@@ -52,8 +52,8 @@ int main()
                 player.rigidBody.acc.y += 20;
             }
         }
-        collisionSystem(&platforms, &player.rigidBody);
         updatePhysicsComponent(&player.rigidBody);
+        collisionSystem(&platforms, &player.rigidBody);
         bun2dFillRect(player.rigidBody.pos.x, player.rigidBody.pos.y, player.rigidBody.dims.x, player.rigidBody.dims.y, color);
         for(int i = 0; i < 1; i++){
             Platform p = platforms[i];
