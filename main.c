@@ -49,7 +49,7 @@ int main()
         }
         if(bun2dKey(KEY_W) > 0){
             if(player.rigidBody.onGround){
-                player.rigidBody.acc.y += 20;
+                player.rigidBody.acc.y += 10;
             }
         }
         updatePhysicsComponent(&player.rigidBody);
@@ -84,6 +84,9 @@ void updatePhysicsComponent(PhysicsComponent* comp){
 
     comp->vel.x += comp->acc.x;
     comp->vel.y += comp->acc.y;
+    if(!comp->onGround){
+        comp->vel.y -= 0.1;
+    }
 
     comp->vel.x *= 0.9;
     // Gravity
