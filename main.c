@@ -38,11 +38,11 @@ int main()
     while (bun2dTick()) {
         bun2dClear();
         // Input
-        if(bun2dKey(KEY_D) == BUN2D_PRESS){
+        if(bun2dKey(KEY_D) > 0){
            player.rigidBody.acc.x += 0.2; 
         }
 
-        if(bun2dKey(KEY_A) == BUN2D_PRESS){
+        if(bun2dKey(KEY_A) > 0){
            player.rigidBody.acc.x -= 0.2; 
         }
         if(bun2dKey(KEY_S) == BUN2D_PRESS){
@@ -65,10 +65,10 @@ int main()
 void collisionSystem(Platform** toCheck, PhysicsComponent* p){
     for(int i = 0; i < 1; i++){
         Platform* plat = toCheck[i];
-        if((p->pos.x <= plat->pos.x + plat->dims.x)
-        && (p->pos.x + p->dims.x >= plat->pos.x) 
-        && (p->pos.y <= plat->pos.y + plat->dims.y)
-        && (p->pos.y + p->dims.y >= plat->pos.y))
+        if((p->pos.x < plat->pos.x + plat->dims.x)
+        && (p->pos.x + p->dims.x > plat->pos.x) 
+        && (p->pos.y < plat->pos.y + plat->dims.y)
+        && (p->pos.y + p->dims.y > plat->pos.y))
         {
             if(p->pos.y <= plat->pos.y + plat->dims.y){
                 p->pos.y = plat->pos.y + plat->dims.y;
